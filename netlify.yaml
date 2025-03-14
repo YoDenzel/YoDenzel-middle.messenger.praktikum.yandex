@@ -11,5 +11,6 @@
 
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/messenger"
   status = 200
+  force = true
