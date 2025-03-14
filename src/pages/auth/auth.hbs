@@ -1,0 +1,27 @@
+<div class="auth">
+  <div class="auth__container">
+    
+    <form class="auth__form">
+    <h1 class="auth__title">Вход</h1>
+      <div class="form__group">
+        <input type="text" id="login" name="login" class="form__input" placeholder=" ">
+        <label for="login" class="form__label">Логин</label>
+      </div>
+      
+      <div class="form__group">
+        <input type="password" id="password" name="password" class="form__input" placeholder=" ">
+        <label for="password" class="form__label">Пароль</label>
+        <a href="#" class="auth__forgot-password">Забыли пароль?</a>
+      </div>
+    <div class="auth__footer">
+      <div class="form__actions">
+        <button onclick="switchView('registration')" type="submit" class="button button--primary">Войти</button>
+      </div>
+      <a href="/register.html" class="auth__register-link">Нет аккаунта?</a>
+    </div>
+    </form>
+    
+  </div>
+<div class="auth__background-line" ></div>
+    {{> navigation-buttons pages=pages}}
+</div>

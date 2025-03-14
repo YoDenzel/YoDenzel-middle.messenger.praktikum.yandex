@@ -1,0 +1,64 @@
+<div class="profile">
+  <button class="profile__back-button">
+    <img src="go-back-arrow.svg" alt="Go back" class="profile__back-icon">
+  </button>
+  
+  <div class="profile__container">
+    <div class="profile__avatar">
+      <img src="avatar.png" alt="Avatar" class="profile__avatar-img">
+      <button class="profile__avatar-edit">Изменить аватар</button>
+    </div>
+      <div class="profile__divider-background"></div>
+
+    <h1 class="profile__name">{{firstName}} {{lastName}}</h1>
+
+    <form class="profile__form">
+      <div class="profile__row">
+        <div class="profile__field">
+          <input type="text" id="email" name="email" class="profile__input" placeholder=" " value="{{email}}" {{#unless isEditing}}disabled{{/unless}}>
+          <label class="profile__label" for="email">Почта</label>
+        </div>
+
+        <div class="profile__field">
+          <input type="text" id="login" name="login" class="profile__input" placeholder=" " value="{{login}}" {{#unless isEditing}}disabled{{/unless}}>
+          <label class="profile__label" for="login">Логин</label>
+        </div>
+      </div>
+
+      <div class="profile__row">
+        <div class="profile__field">
+          <input type="text" id="first_name" name="first_name" class="profile__input" placeholder=" " value="{{firstName}}" {{#unless isEditing}}disabled{{/unless}}>
+          <label class="profile__label" for="first_name">Имя</label>
+        </div>
+
+        <div class="profile__field">
+          <input type="text" id="second_name" name="second_name" class="profile__input" placeholder=" " value="{{lastName}}" {{#unless isEditing}}disabled{{/unless}}>
+          <label class="profile__label" for="second_name">Фамилия</label>
+        </div>
+      </div>
+
+      <div class="profile__row">
+        <div class="profile__field">
+          <input type="tel" id="phone" name="phone" class="profile__input" placeholder=" " value="{{phone}}" {{#unless isEditing}}disabled{{/unless}}>
+          <label class="profile__label" for="phone">Телефон</label>
+        </div>
+
+        <div class="profile__field">
+          <input type="password" id="password" name="password" class="profile__input" placeholder=" " value="{{password}}" {{#unless isEditing}}disabled{{/unless}}>
+          <label class="profile__label" for="password">Пароль</label>
+        </div>
+      </div>
+
+      <div class="profile__actions">
+        {{#if isEditing}}
+          <button type="submit" class="profile__button">Сохранить изменения</button>
+        {{else}}
+          <button type="button" class="profile__link" onclick="switchToEditing()">Изменить пароль</button>
+          <div class="profile__divider"></div>
+          <button type="button" class="profile__link profile__link--danger">Выйти</button>
+        {{/if}}
+      </div>
+    </form>
+  </div>
+  {{> navigation-buttons pages=pages}}
+</div> 
