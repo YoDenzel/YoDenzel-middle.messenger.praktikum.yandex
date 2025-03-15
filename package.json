@@ -9,6 +9,9 @@
     "preview": "vite preview",
     "start": "tsc && vite build && vite preview"
   },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@types/node": "^22.13.10",
