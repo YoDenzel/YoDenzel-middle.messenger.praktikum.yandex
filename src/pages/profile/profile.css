@@ -178,7 +178,7 @@
   font-weight: 500;
   cursor: pointer;
   margin-bottom: 12px;
-  
+
   &:hover {
     transform: translateY(-2px);
   }
@@ -212,4 +212,4 @@
 .profile__back-icon {
   width: 20px;
   height: 20px;
-} 
+}
