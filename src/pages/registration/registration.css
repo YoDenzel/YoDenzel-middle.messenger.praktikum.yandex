@@ -18,7 +18,7 @@
     padding: 30px;
     background-color: var(--card-background);
     border-radius: 26px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0 0 0 / 10%);
   }
 
   .registration__title {
@@ -52,17 +52,10 @@
     border-bottom: 1px solid var(--primary-color);
     font-size: 16px;
     background: transparent;
-  }
 
-  .registration__input:focus {
-    outline: none;
-  }
-
-  .registration__input:focus ~ .registration__label,
-  .registration__input:not(:placeholder-shown) ~ .registration__label {
-    top: -8px;
-    font-size: 12px;
-    color: var(--primary-color);
+    &:focus {
+        outline: none;
+    }
   }
 
   .registration__label {
@@ -73,6 +66,13 @@
     font-size: 16px;
     transition: all 0.2s ease-out;
     pointer-events: none;
+  }
+
+  .registration__input:focus ~ .registration__label,
+  .registration__input:not(:placeholder-shown) ~ .registration__label {
+    top: -8px;
+    font-size: 12px;
+    color: var(--primary-color);
   }
 
   .registration__error {
@@ -101,6 +101,7 @@
     font-weight: normal;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.1s;
+
     &:hover {
         transform: translateY(-2px);
     }

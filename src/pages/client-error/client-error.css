@@ -43,6 +43,7 @@
     font-size: var(--font-size-medium);
     text-decoration: none;
     transition: opacity 0.3s;
+
     &:hover {
         opacity: 0.8;
     }
