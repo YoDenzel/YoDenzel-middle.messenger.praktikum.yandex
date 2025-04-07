@@ -1,0 +1,163 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 15%);
+  position: relative;
+  transform: translateY(-20px);
+  transition: transform 0.3s;
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0);
+}
+
+.modal__close-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.modal__title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal__upload-area {
+  width: 100%;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.modal__upload-area.drag-over {
+  border-color: #3369f3;
+  background-color: #f0f5ff;
+}
+
+.modal__description {
+  color: #555;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.modal__file-input-wrapper {
+  margin-bottom: 16px;
+}
+
+.modal__file-input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.modal__file-label {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    opacity: 0.9
+  }
+}
+
+.modal__preview-container {
+  width: 100%;
+  max-width: 200px;
+  margin: 16px auto 0;
+}
+
+.modal__preview-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.modal__button {
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border: none;
+  font-size: 14px;
+}
+
+.modal__button--primary {
+  background-color: var(--primary-color);
+  color: white;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.modal__button--secondary {
+  background-color: #e0e0e0;
+  color: #333;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+

@@ -11,6 +11,11 @@ export default {
     },
     publicDir:resolve(__dirname, 'public'),
     plugins: [
-        handlebars({})
+        handlebars({}),
     ],
+    server: {
+        port: 3000,
+        strictPort: true,
+        host: true
+    }
 }

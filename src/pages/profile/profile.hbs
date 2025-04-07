@@ -2,15 +2,17 @@
   <button class="profile__back-button">
     <img src="go-back-arrow.svg" alt="Go back" class="profile__back-icon">
   </button>
-  
-  <div class="profile__container">
+
+  <main class="profile__container">
     <div class="profile__avatar">
       <img src="avatar.png" alt="Avatar" class="profile__avatar-img">
-      <button class="profile__avatar-edit">Изменить аватар</button>
+      <button class="profile__avatar-edit" onclick="openAvatarModal()">Изменить аватар</button>
     </div>
       <div class="profile__divider-background"></div>
 
-    <h1 class="profile__name">{{firstName}} {{lastName}}</h1>
+    <div class="profile__name-field">
+      <input type="text" id="display_name" name="display_name" class="profile__name-input" placeholder="" value="{{firstName}} {{lastName}}" {{#unless isEditing}}disabled{{/unless}}>
+    </div>
 
     <form class="profile__form">
       <div class="profile__row">
@@ -53,12 +55,14 @@
         {{#if isEditing}}
           <button type="submit" class="profile__button">Сохранить изменения</button>
         {{else}}
-          <button type="button" class="profile__link" onclick="switchToEditing()">Изменить пароль</button>
+          <button type="button" class="profile__link" onclick="openPasswordModal()">Изменить пароль</button>
           <div class="profile__divider"></div>
           <button type="button" class="profile__link profile__link--danger">Выйти</button>
         {{/if}}
       </div>
     </form>
-  </div>
+  </main>
   {{> navigation-buttons pages=pages}}
-</div> 
+  {{> avatar-upload-modal}}
+  {{> password-change-modal}}
+</div>

@@ -197,7 +197,7 @@
   height: 100%;
   color: var(--text-primary);
   font-size: 34px;
-  font-weight: 200; 
+  font-weight: 200;
   margin: 0 20px;
 }
 
@@ -230,4 +230,4 @@
 
 .messenger__send-icon {
   font-size: 20px;
-} 
+}
