@@ -61,11 +61,30 @@
   opacity: 1;
 }
 
-.profile__name {
+.profile__name-field {
+  position: relative;
+  margin-bottom: 30px;
+  width: auto;
+  text-align: center;
+}
+
+.profile__name-input {
   font-size: 24px;
   font-weight: 600;
-  margin-bottom: 30px;
   color: var(--text-primary);
+  border: none;
+  background: transparent;
+  text-align: center;
+  padding: 5px;
+  width: 100%;
+}
+
+.profile__name-input:focus {
+  outline: none;
+}
+
+.profile__name-input:disabled {
+  cursor: default;
 }
 
 .profile__form {
@@ -130,7 +149,6 @@
   }
 }
 
-
 .profile__value {
   color: var(--text-primary);
   font-size: 14px;
@@ -163,7 +181,6 @@
    height: 1px;
    background-color: var(--border-color);
 }
-
 
 .profile__link--danger {
   color: red;

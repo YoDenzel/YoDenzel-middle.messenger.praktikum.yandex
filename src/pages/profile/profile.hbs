@@ -10,7 +10,9 @@
     </div>
       <div class="profile__divider-background"></div>
 
-    <h1 class="profile__name">{{firstName}} {{lastName}}</h1>
+    <div class="profile__name-field">
+      <input type="text" id="display_name" name="display_name" class="profile__name-input" placeholder="" value="{{firstName}} {{lastName}}" {{#unless isEditing}}disabled{{/unless}}>
+    </div>
 
     <form class="profile__form">
       <div class="profile__row">
