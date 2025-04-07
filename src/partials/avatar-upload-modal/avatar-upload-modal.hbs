@@ -1,0 +1,27 @@
+<div class="modal-overlay" id="avatar-upload-modal">
+  <div class="modal">
+    <button class="modal__close-button" onclick="closeAvatarModal()">×</button>
+
+    <div class="modal__content">
+      <h2 class="modal__title">Загрузите файл</h2>
+
+      <div class="modal__upload-area" id="drop-area">
+        <p class="modal__description">Выберите файл на компьютере или перетащите его сюда</p>
+
+        <div class="modal__file-input-wrapper">
+          <input type="file" id="avatar-file" class="modal__file-input" accept="image/*">
+          <label for="avatar-file" class="modal__file-label">Выбрать файл</label>
+        </div>
+
+        <div class="modal__preview-container" id="preview-container">
+          <img id="avatar-preview" class="modal__preview-image" src="" alt="Preview" style="display: none;">
+        </div>
+      </div>
+
+      <div class="modal__actions">
+        <button class="modal__button modal__button--primary" id="upload-avatar-btn">Поменять</button>
+        <button class="modal__button modal__button--secondary" onclick="closeAvatarModal()">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,8 @@ import * as Pages from './pages';
 import * as Partials from './partials';
 
 Handlebars.registerPartial('navigation-buttons', Partials.NavigationButtons);
+Handlebars.registerPartial('avatar-upload-modal', Partials.AvatarUploadModal);
+Handlebars.registerPartial('password-change-modal', Partials.PasswordChangeModal);
 
 const pageData = [
   { view: 'auth', name: 'Login' },
@@ -29,6 +31,11 @@ function switchView(view: keyof typeof templates) {
   const app = document.getElementById('app');
   if (app)  app.innerHTML = templates[view]({ pages: pageData, firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', login: 'johndoe', phone: '+1234567890', password: 'password' });
 
+  // Initialize modal functionality after view switch
+  if (view === 'profile') {
+    Partials.initAvatarUploadModal();
+    Partials.initPasswordChangeModal();
+  }
 }
 
 // Load initial view
