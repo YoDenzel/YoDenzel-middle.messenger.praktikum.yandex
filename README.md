@@ -6,7 +6,7 @@
 🎨 [Макет в Figma](https://www.figma.com/design/RfMkYkdwg3UmqQCSLvKCKP/ahh-design?node-id=1-14&t=OwlRO9PzMAbc70IL-0)
 
 ## Демо
-🚀 [Netlify](https://67d43024e9f8be0081c08469--delightful-biscuit-01a8ac.netlify.app/)
+🚀 [Netlify](https://delightful-biscuit-01a8ac.netlify.app/)
 
 ## Технологии
 - TypeScript
