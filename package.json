@@ -1,0 +1,35 @@
+{
+  "name": "messenger",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "start": "tsc && vite build && vite preview --port 3000"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/node": "^22.13.10",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.22.0",
+    "globals": "^16.0.0",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.0",
+    "postcss-preset-env": "^10.1.5",
+    "stylelint": "^16.16.0",
+    "stylelint-config-standard": "^37.0.0",
+    "stylelint-selector-bem-pattern": "^4.0.1",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.26.1",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.8",
+    "vite-plugin-handlebars": "^2.0.0"
+  }
+}

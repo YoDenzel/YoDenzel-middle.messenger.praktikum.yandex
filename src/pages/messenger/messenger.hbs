@@ -1,0 +1,69 @@
+<div class="messenger-container">
+<div class="messenger">
+  <aside class="messenger__sidebar">
+    <div class="messenger__header">
+      <a href="/profile" class="messenger__profile-link">
+        Аккаунт
+      </a>
+      <div class="messenger__search">
+        <div class="messenger__search-wrapper">
+          <input type="text" class="messenger__search-input" placeholder="Поиск">
+          <img src="search.svg" alt="Search" class="messenger__search-icon">
+        </div>
+      </div>
+    </div>
+
+    <div class="messenger__chats">
+      {{#each chats}}
+        <div class="chat-item {{#if isSelected}}chat-item--selected{{/if}}">
+          <div class="chat-item__avatar">
+            <img src="{{avatar}}" alt="{{name}}" class="chat-item__avatar-img">
+          </div>
+          <div class="chat-item__content">
+            <div class="chat-item__top">
+              <span class="chat-item__name">{{name}}</span>
+              <span class="chat-item__time">{{time}}</span>
+            </div>
+            <div class="chat-item__bottom">
+              <span class="chat-item__message">{{lastMessage}}</span>
+              {{#if unreadCount}}
+                <span class="chat-item__counter">{{unreadCount}}</span>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </aside>
+
+  <main class="messenger__main">
+    {{#if selectedChat}}
+      <div class="messenger__chat">
+        <div class="messenger__chat-header">
+          <div class="messenger__chat-info">
+            <img src="{{selectedChat.avatar}}" alt="{{selectedChat.name}}" class="messenger__chat-avatar">
+            <span class="messenger__chat-name">{{selectedChat.name}}</span>
+          </div>
+          <button class="messenger__chat-menu">⋮</button>
+        </div>
+
+        <div class="messenger__messages">
+          <div class="messenger__empty">
+            <p>Выберите чат, чтобы отправить сообщение</p>
+          </div>
+        </div>
+
+        <form class="messenger__input-area">
+          <input type="text" class="messenger__input" placeholder="Сообщение">
+          <button type="submit" class="messenger__send">
+            <span class="messenger__send-icon">→</span>
+          </button>
+        </form>
+      </div>
+    {{else}}
+        <p class="messenger__empty">Выберите чат, чтобы отправить сообщение</p>
+    {{/if}}
+  </main>
+</div>
+  {{> navigation-buttons pages=pages}}
+</div>
