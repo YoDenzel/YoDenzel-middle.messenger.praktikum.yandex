@@ -1,16 +1,21 @@
 import Button from "./components/button/button";
+import { profile } from "./user-profile";
 import { render } from "./framework/render-dom";
 
-const button = new Button({
-  className: "my-class",
-  child: "Click me",
-});
+// const button = new Button({
+//   text: "Click me",
+//   events: {
+//     click: () => {
+//       console.log("click");
+//     },
+//   },
+// });
 
-render("#app", button);
+render("#app", profile);
 
-setTimeout(() => {
-  button.setProps({
-    className: "otherClass",
-    child: "Click me, please",
-  });
-}, 1000);
+// setTimeout(() => {
+//   button.setProps({
+//     className: "otherClass",
+//     text: "Click me, please",
+//   });
+// }, 1000);

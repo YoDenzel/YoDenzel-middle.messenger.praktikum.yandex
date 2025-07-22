@@ -1,19 +1,17 @@
 import Block from "../../framework/block";
-
-import Handlebars from "handlebars";
 import { template } from "./template";
 
-// You may want to define the shape of props more specifically
-interface ButtonProps {
+interface Props {
   [key: string]: any;
+  text: string;
 }
 
 export default class Button extends Block {
-  constructor(props: ButtonProps) {
+  constructor(props: Props) {
     super("button", props);
   }
 
   render() {
-    return Handlebars.compile(template)(this.props);
+    return this.compile(template, this.props);
   }
 }

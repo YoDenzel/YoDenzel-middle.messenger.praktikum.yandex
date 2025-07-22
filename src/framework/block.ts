@@ -1,33 +1,32 @@
+import { v4 as uuidv4 } from "uuid";
 import { EventBus } from "./event-bus";
+import Handlebars from "handlebars";
 
-// Define the events and their argument types
 type BlockEvents = {
-  //   [key: string]: unknown[];
   init: [];
   componentDidMount: [oldProps?: Record<string, unknown>];
   componentDidUpdate: [oldProps: Record<string, unknown>, newProps: Record<string, unknown>];
   render: [];
-  //   flowCDM: [];
-  //   flowRender: [];
 };
 
-// Нельзя создавать экземпляр данного класса
+// TODO: abstract class
 class Block {
   static EVENTS = {
     INIT: "init",
     COMPONENT_DID_MOUNT: "componentDidMount",
     COMPONENT_DID_UPDATE: "componentDidUpdate",
     RENDER: "render",
-    // FLOW_CDM: "flowCDM",
-    // FLOW_RENDER: "flowRender"
   } as const;
 
   private _element: HTMLElement | null = null;
   private _meta: { tagName: string; props: Record<string, unknown> };
   public props: Record<string, unknown>;
+  public children: Record<string, Block>;
   private _eventBus: EventBus<BlockEvents>;
+  private _id: string | null = null;
 
-  constructor(tagName: string = "div", props: Record<string, unknown> = {}) {
+  constructor(tagName: string = "div", propsAndChildren: Record<string, unknown> = {}) {
+    const { props, children } = this._getChildren(propsAndChildren);
     this._eventBus = new EventBus<BlockEvents>();
 
     this._meta = {
@@ -35,10 +34,27 @@ class Block {
       props,
     };
 
-    this.props = this._makePropsProxy(props);
+    this._id = uuidv4();
+
+    this.props = this._makePropsProxy({ ...props, __id: this._id });
+    this.children = children;
 
     this._registerEvents();
     this._eventBus.emit(Block.EVENTS.INIT);
+  }
+
+  private _getChildren(propsAndChildren: Record<string, unknown>) {
+    const props: Record<string, unknown> = {};
+    const children: Record<string, Block> = {};
+
+    Object.entries(propsAndChildren).forEach(([key, value]) => {
+      if (value instanceof Block) {
+        children[key] = value;
+      } else {
+        props[key] = value;
+      }
+    });
+    return { props, children };
   }
 
   private _registerEvents() {
@@ -53,6 +69,22 @@ class Block {
     this._element = this._createDocumentElement(tagName);
   }
 
+  private _addEvents() {
+    // TODO: set type props as generic
+    const { events = {} } = this.props as { events: Record<string, () => void> };
+    Object.keys(events).forEach((eventName) => {
+      this._element?.addEventListener(eventName, events[eventName]);
+    });
+  }
+
+  private _removeEvents() {
+    // TODO: set type props as generic
+    const { events = {} } = this.props as { events: Record<string, () => void> };
+    Object.keys(events).forEach((eventName) => {
+      this._element?.removeEventListener(eventName, events[eventName]);
+    });
+  }
+
   init = () => {
     this._createResources();
     this._eventBus.emit(Block.EVENTS.RENDER);
@@ -60,9 +92,12 @@ class Block {
 
   private _componentDidMount() {
     this.componentDidMount();
+
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentDidMount();
+    });
   }
 
-  // May be overridden by subclasses
   componentDidMount(oldProps?: Record<string, unknown>): void {}
 
   dispatchComponentDidMount() {
@@ -93,17 +128,15 @@ class Block {
   private _render() {
     const block = this.render();
     if (this._element) {
-      // Это небезопасный метод для упрощения логики
-      // Используйте шаблонизатор из npm или напишите свой безопасный
-      // Нужно компилировать не в строку (или делать это правильно),
-      // либо сразу превращать в DOM-элементы и возвращать из compile DOM-ноду
-      this._element.innerHTML = block;
+      this._removeEvents();
+      this._element.innerHTML = "";
+      this._element.appendChild(block);
+      this._addEvents();
     }
   }
 
-  // Переопределяется пользователем. Необходимо вернуть разметку
-  render(): string {
-    return "";
+  render(): DocumentFragment {
+    return new DocumentFragment();
   }
 
   getContent(): HTMLElement | null {
@@ -129,23 +162,37 @@ class Block {
     });
   }
 
-  private _createDocumentElement(tagName: string): HTMLElement {
-    return document.createElement(tagName);
+  private _createDocumentElement(tagName: string): HTMLElement | HTMLTemplateElement {
+    const element = document.createElement(tagName) as HTMLElement | HTMLTemplateElement;
+    if (this._id) {
+      element.setAttribute("data-id", this._id);
+    }
+    return element;
   }
 
-  //   show(): void {
-  //     const content = this.getContent();
-  //     if (content) {
-  //       content.style.display = "block";
-  //     }
-  //   }
+  compile(template: string, props: Record<string, unknown>) {
+    const propsAndStubs = { ...props };
 
-  //   hide(): void {
-  //     const content = this.getContent();
-  //     if (content) {
-  //       content.style.display = "none";
-  //     }
-  //   }
+    Object.entries(this.children).forEach(([key, child]) => {
+      if (child instanceof Block) {
+        propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
+      }
+    });
+
+    const fragment = this._createDocumentElement("template") as HTMLTemplateElement;
+    fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
+
+    Object.values(this.children).forEach((child) => {
+      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+
+      const content = child?.getContent();
+      if (content) {
+        stub?.replaceWith(content);
+      }
+    });
+
+    return fragment.content;
+  }
 }
 
 export default Block;
