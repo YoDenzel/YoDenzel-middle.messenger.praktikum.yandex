@@ -2,13 +2,15 @@ import { Block, BaseProps } from "../../framework/block";
 import template from "./template.hbs?raw";
 
 interface Props extends BaseProps {
-  label?: string;
+  src: string;
+  alt: string;
   className?: string;
-  type?: string;
-  events?: Record<string, (e: Event) => void>;
+  width?: string;
+  height?: string;
+  events?: Record<string, () => void>;
 }
 
-export class Button extends Block<Props> {
+export class Img extends Block<Props> {
   constructor(props: Props) {
     super(undefined, props);
   }
@@ -16,4 +18,4 @@ export class Button extends Block<Props> {
   render() {
     return this.compile(template, this.props);
   }
-}
+} 

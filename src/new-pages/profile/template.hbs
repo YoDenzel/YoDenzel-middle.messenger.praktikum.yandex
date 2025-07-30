@@ -1,0 +1,60 @@
+<div class="profile">
+  {{{goBackButton}}}
+
+  <main class="profile__container">
+    <div class="profile__avatar">
+      {{{avatarImg}}}
+      {{{avatarEditButton}}}
+    </div>
+    <div class="profile__divider-background"></div>
+
+    <div class="profile__name-field">
+      {{{displayNameInput}}}
+    </div>
+
+    <form class="profile__form">
+      <div class="profile__row">
+        <div class="profile__field">
+          {{{emailInput}}}
+        </div>
+
+        <div class="profile__field">
+          {{{loginInput}}}
+        </div>
+      </div>
+
+      <div class="profile__row">
+        <div class="profile__field">
+          {{{firstNameInput}}}
+        </div>
+
+        <div class="profile__field">
+          {{{lastNameInput}}}
+        </div>
+      </div>
+
+      <div class="profile__row">
+        <div class="profile__field">
+          {{{phoneInput}}}
+        </div>
+
+        <div class="profile__field">
+          {{{passwordInput}}}
+        </div>
+      </div>
+
+      <div class="profile__actions">
+        {{#if isEditing}}
+          {{{saveButton}}}
+        {{else}}
+          {{{changePasswordButton}}}
+          <div class="profile__divider"></div>
+          {{{logoutButton}}}
+        {{/if}}
+      </div>
+    </form>
+  </main>
+  {{!-- {{> navigation-buttons pages=pages}} --}}
+  {{!-- {{> avatar-upload-modal}} --}}
+  {{!-- {{> password-change-modal}} --}}
+</div>

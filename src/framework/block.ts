@@ -9,8 +9,12 @@ type BlockEvents = {
   render: [];
 };
 
+export interface BaseProps extends Record<string, unknown> {
+  events?: Record<string, (e: Event) => void>;
+}
+
 // TODO: abstract class
-class Block {
+export class Block<TProps extends BaseProps = BaseProps> {
   static EVENTS = {
     INIT: "init",
     COMPONENT_DID_MOUNT: "componentDidMount",
@@ -20,7 +24,7 @@ class Block {
 
   private _element: HTMLElement | null = null;
   private _meta: { tagName: string; props: Record<string, unknown> };
-  public props: Record<string, unknown>;
+  public props: TProps;
   public children: Record<string, Block>;
   private _eventBus: EventBus<BlockEvents>;
   private _id: string | null = null;
@@ -36,7 +40,7 @@ class Block {
 
     this._id = uuidv4();
 
-    this.props = this._makePropsProxy({ ...props, __id: this._id });
+    this.props = this._makePropsProxy({ ...props, __id: this._id }) as TProps;
     this.children = children;
 
     this._registerEvents();
@@ -48,6 +52,7 @@ class Block {
     const children: Record<string, Block> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
+      // TODO: children should be an array of blocks
       if (value instanceof Block) {
         children[key] = value;
       } else {
@@ -70,16 +75,14 @@ class Block {
   }
 
   private _addEvents() {
-    // TODO: set type props as generic
-    const { events = {} } = this.props as { events: Record<string, () => void> };
+    const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName]);
     });
   }
 
   private _removeEvents() {
-    // TODO: set type props as generic
-    const { events = {} } = this.props as { events: Record<string, () => void> };
+    const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
       this._element?.removeEventListener(eventName, events[eventName]);
     });
@@ -114,7 +117,7 @@ class Block {
     return true;
   }
 
-  setProps = (nextProps: Record<string, unknown>): void => {
+  setProps = (nextProps: Partial<TProps>): void => {
     if (!nextProps) {
       return;
     }
@@ -194,5 +197,3 @@ class Block {
     return fragment.content;
   }
 }
-
-export default Block;

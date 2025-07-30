@@ -1,14 +1,13 @@
-import { Block, BaseProps } from "../../framework/block";
+import { BaseProps, Block } from "../../framework/block";
 import template from "./template.hbs?raw";
 
 interface Props extends BaseProps {
-  label?: string;
+  href: string;
   className?: string;
-  type?: string;
-  events?: Record<string, (e: Event) => void>;
+  label: string;
 }
 
-export class Button extends Block<Props> {
+export class Link extends Block<Props> {
   constructor(props: Props) {
     super(undefined, props);
   }
