@@ -1,9 +1,11 @@
 import "./client-error.css";
+import { render } from "../../framework/render-dom";
 
 import { Block, BaseProps } from "../../framework/block";
 import template from "./template.hbs?raw";
 import { Button } from "../../components/button/button";
 import { Img } from "../../components/img/img";
+import { NavigationLinks } from "../../components/navigation-links/navigation-links";
 
 interface Props extends BaseProps {
   errorMessage: string;
@@ -37,8 +39,11 @@ export const clientError = new ClientError({
     label: "Назад к чатам",
     events: {
       click: () => {
-        console.log("Navigate back to messenger");
+        window.location.href = "/messenger";
       },
     },
   }),
+  navigationLinks: new NavigationLinks({}),
 });
+
+render("#app", clientError);

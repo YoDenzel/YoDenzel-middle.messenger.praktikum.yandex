@@ -1,9 +1,11 @@
 import "./auth.css";
 import { BaseProps, Block } from "../../framework/block";
+import { render } from "../../framework/render-dom";
 import template from "./template.hbs?raw";
 import { Button } from "../../components/button/button";
 import { InputWithLabel } from "../../components/input-with-label/input-with-label";
 import { Link } from "../../components/link/link";
+import { NavigationLinks } from "../../components/navigation-links/navigation-links";
 
 class Auth extends Block {
   constructor(props: BaseProps) {
@@ -22,7 +24,7 @@ export const auth = new Auth({
     type: "button",
     events: {
       click: () => {
-        console.log("click");
+        window.location.href = "/registration";
       },
     },
   }),
@@ -43,7 +45,7 @@ export const auth = new Auth({
     label: "Пароль",
   }),
   noAccountLink: new Link({
-    href: "/register.html",
+    href: "/registration",
     className: "auth__register-link",
     label: "Нет аккаунта?",
   }),
@@ -52,4 +54,7 @@ export const auth = new Auth({
     className: "auth__forgot-password",
     label: "Забыли пароль?",
   }),
+  navigationLinks: new NavigationLinks({}),
 });
+
+render("#app", auth);

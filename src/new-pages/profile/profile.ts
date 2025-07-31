@@ -1,3 +1,4 @@
+import { render } from "../../framework/render-dom";
 import "./profile.css";
 
 import { Block, BaseProps } from "../../framework/block";
@@ -5,6 +6,7 @@ import template from "./template.hbs?raw";
 import { Button } from "../../components/button/button";
 import { Img } from "../../components/img/img";
 import { InputWithLabel } from "../../components/input-with-label/input-with-label";
+import { NavigationLinks } from "../../components/navigation-links/navigation-links";
 
 interface Props extends BaseProps {
   isEditing?: boolean;
@@ -146,4 +148,7 @@ export const profile = new Profile({
     className: "profile__link profile__link--danger",
     label: "Выйти",
   }),
+  navigationLinks: new NavigationLinks({}),
 });
+
+render("#app", profile);

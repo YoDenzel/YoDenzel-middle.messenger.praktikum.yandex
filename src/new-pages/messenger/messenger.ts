@@ -1,10 +1,12 @@
 import "./messenger.css";
+import { render } from "../../framework/render-dom";
 
 import { Block, BaseProps } from "../../framework/block";
 import template from "./template.hbs?raw";
 import { Button } from "../../components/button/button";
 import { Img } from "../../components/img/img";
 import { InputWithLabel } from "../../components/input-with-label/input-with-label";
+import { NavigationLinks } from "../../components/navigation-links/navigation-links";
 
 interface Chat {
   id: string;
@@ -67,7 +69,7 @@ export const messenger = new Messenger({
     label: "Аккаунт",
     events: {
       click: () => {
-        console.log("Navigate to profile");
+        window.location.href = "/profile";
       },
     },
   }),
@@ -113,4 +115,7 @@ export const messenger = new Messenger({
       },
     },
   }),
+  navigationLinks: new NavigationLinks({}),
 });
+
+render("#app", messenger);

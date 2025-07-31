@@ -1,6 +1,8 @@
+import { render } from "../../framework/render-dom";
 import { Button } from "../../components/button/button";
 import { InputWithLabel } from "../../components/input-with-label/input-with-label";
 import { Link } from "../../components/link/link";
+import { NavigationLinks } from "../../components/navigation-links/navigation-links";
 import { BaseProps, Block } from "../../framework/block";
 import "./registration.css";
 
@@ -79,8 +81,11 @@ export const registration = new Registration({
     type: "submit",
   }),
   enterLink: new Link({
-    href: "/pages/auth/auth.html",
+    href: "/auth",
     className: "registration__link",
     label: "Войти",
   }),
+  navigationLinks: new NavigationLinks({}),
 });
+
+render("#app", registration);
