@@ -1,4 +1,4 @@
 import { render } from "./framework/render-dom";
-import { auth } from "./new-pages/auth/auth";
+import { auth } from "./pages/auth/auth";
 
 render("#app", auth);

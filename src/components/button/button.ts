@@ -2,6 +2,7 @@ import { Block, BaseProps } from "../../framework/block";
 import template from "./template.hbs?raw";
 
 interface Props extends BaseProps {
+  id?: string;
   label?: string;
   className?: string;
   type?: string;

@@ -11,6 +11,7 @@ interface Props extends BaseProps {
   label: string;
   value?: string;
   disabled?: boolean;
+  accept?: string;
 }
 
 export class InputWithLabel extends Block<Props> {

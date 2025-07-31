@@ -7,6 +7,8 @@ import { Button } from "../../components/button/button";
 import { Img } from "../../components/img/img";
 import { InputWithLabel } from "../../components/input-with-label/input-with-label";
 import { NavigationLinks } from "../../components/navigation-links/navigation-links";
+import { AvatarUploadModal } from "../../components/avatar-upload-modal/avatar-upload-modal";
+import { PasswordChangeModal } from "../../components/password-change-modal/password-change-modal";
 
 interface Props extends BaseProps {
   isEditing?: boolean;
@@ -149,6 +151,9 @@ export const profile = new Profile({
     label: "Выйти",
   }),
   navigationLinks: new NavigationLinks({}),
+  avatarUploadModal: new AvatarUploadModal({}),
+  passwordChangeModal: new PasswordChangeModal({}),
 });
 
 render("#app", profile);
+// initAvatarUploadModal();
