@@ -9,6 +9,10 @@ import { InputWithLabel } from "../../components/input-with-label/input-with-lab
 import { NavigationLinks } from "../../components/navigation-links/navigation-links";
 import { AvatarUploadModal } from "../../components/avatar-upload-modal/avatar-upload-modal";
 import { PasswordChangeModal } from "../../components/password-change-modal/password-change-modal";
+import { Form } from "../../components/form/form";
+import { ProfileForm } from "./profile-form/profile-form";
+
+const IS_EDITING = false;
 
 interface Props extends BaseProps {
   isEditing?: boolean;
@@ -25,7 +29,7 @@ class Profile extends Block<Props> {
 }
 
 export const profile = new Profile({
-  isEditing: false,
+  isEditing: IS_EDITING,
   goBackButton: new Button({
     className: "profile__back-button",
     type: "button",
@@ -60,95 +64,13 @@ export const profile = new Profile({
     placeholder: "",
     label: "",
     value: "John Doe",
-    disabled: true,
+    disabled: !IS_EDITING,
   }),
-  emailInput: new InputWithLabel({
-    type: "text",
-    id: "email",
-    name: "email",
-    className: "profile__input",
-    placeholder: " ",
-    labelClassName: "profile__label",
-    label: "Почта",
-    value: "john.doe@example.com",
-    disabled: false,
-  }),
-  loginInput: new InputWithLabel({
-    type: "text",
-    id: "login",
-    name: "login",
-    className: "profile__input",
-    placeholder: " ",
-    labelClassName: "profile__label",
-    label: "Логин",
-    value: "johndoe",
-    disabled: true,
-  }),
-  firstNameInput: new InputWithLabel({
-    type: "text",
-    id: "first_name",
-    name: "first_name",
-    className: "profile__input",
-    placeholder: " ",
-    labelClassName: "profile__label",
-    label: "Имя",
-    value: "John",
-    disabled: true,
-  }),
-  lastNameInput: new InputWithLabel({
-    type: "text",
-    id: "second_name",
-    name: "second_name",
-    className: "profile__input",
-    placeholder: " ",
-    labelClassName: "profile__label",
-    label: "Фамилия",
-    value: "Doe",
-    disabled: true,
-  }),
-  phoneInput: new InputWithLabel({
-    type: "tel",
-    id: "phone",
-    name: "phone",
-    className: "profile__input",
-    placeholder: " ",
-    labelClassName: "profile__label",
-    label: "Телефон",
-    value: "+1234567890",
-    disabled: true,
-  }),
-  passwordInput: new InputWithLabel({
-    type: "password",
-    id: "password",
-    name: "password",
-    className: "profile__input",
-    placeholder: " ",
-    labelClassName: "profile__label",
-    label: "Пароль",
-    value: "password",
-    disabled: true,
-  }),
-  saveButton: new Button({
-    type: "submit",
-    className: "profile__button",
-    label: "Сохранить изменения",
-  }),
-  changePasswordButton: new Button({
-    type: "button",
-    className: "profile__link",
-    label: "Изменить пароль",
-    events: {
-      click: () => {
-        if (typeof (window as any).openPasswordModal === "function") {
-          (window as any).openPasswordModal();
-        }
-      },
-    },
-  }),
-  logoutButton: new Button({
-    type: "button",
-    className: "profile__link profile__link--danger",
-    label: "Выйти",
+  form: new Form({
+    containerClassName: "profile__form",
+    children: new ProfileForm({
+      isEditing: IS_EDITING,
+    }),
   }),
   navigationLinks: new NavigationLinks({}),
   avatarUploadModal: new AvatarUploadModal({}),
@@ -156,4 +78,3 @@ export const profile = new Profile({
 });
 
 render("#app", profile);
-// initAvatarUploadModal();

@@ -8,7 +8,7 @@ interface Props extends BaseProps {
   className?: string;
   width?: string;
   height?: string;
-  events?: Record<string, () => void>;
+  events?: Record<string, (e: Event) => void>;
   style?: string;
 }
 

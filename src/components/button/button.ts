@@ -7,6 +7,7 @@ interface Props extends BaseProps {
   className?: string;
   type?: string;
   events?: Record<string, (e: Event) => void>;
+  children?: Block;
 }
 
 export class Button extends Block<Props> {

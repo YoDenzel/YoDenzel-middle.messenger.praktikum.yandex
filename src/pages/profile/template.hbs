@@ -12,47 +12,7 @@
       {{{displayNameInput}}}
     </div>
 
-    <form class="profile__form">
-      <div class="profile__row">
-        <div class="profile__field">
-          {{{emailInput}}}
-        </div>
-
-        <div class="profile__field">
-          {{{loginInput}}}
-        </div>
-      </div>
-
-      <div class="profile__row">
-        <div class="profile__field">
-          {{{firstNameInput}}}
-        </div>
-
-        <div class="profile__field">
-          {{{lastNameInput}}}
-        </div>
-      </div>
-
-      <div class="profile__row">
-        <div class="profile__field">
-          {{{phoneInput}}}
-        </div>
-
-        <div class="profile__field">
-          {{{passwordInput}}}
-        </div>
-      </div>
-
-      <div class="profile__actions">
-        {{#if isEditing}}
-          {{{saveButton}}}
-        {{else}}
-          {{{changePasswordButton}}}
-          <div class="profile__divider"></div>
-          {{{logoutButton}}}
-        {{/if}}
-      </div>
-    </form>
+    {{{form}}}
   </main>
   {{{navigationLinks}}}
   {{{avatarUploadModal}}}

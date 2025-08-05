@@ -46,15 +46,25 @@
           </div>
 
           <div class="messenger__messages">
-            <div class="messenger__empty">
-              <p>Выберите чат, чтобы отправить сообщение</p>
-            </div>
+            {{#if selectedChat.messages}}
+              <div class="messenger__messages-list">
+                {{#each selectedChat.messages}}
+                  <div class="message-item {{#if isMine}}message-item--mine{{/if}}">
+                    <div class="message-item__content">
+                      <div class="message-item__text">{{text}}</div>
+                      <div class="message-item__time">{{time}}</div>
+                    </div>
+                  </div>
+                {{/each}}
+              </div>
+            {{else}}
+              <div class="messenger__empty">
+                <p>Выберите чат, чтобы отправить сообщение</p>
+              </div>
+            {{/if}}
           </div>
 
-          <form class="messenger__input-area">
-            {{{messageInput}}}
-            {{{sendButton}}}
-          </form>
+          {{{form}}}
         </div>
       {{else}}
         <p class="messenger__empty">Выберите чат, чтобы отправить сообщение</p>

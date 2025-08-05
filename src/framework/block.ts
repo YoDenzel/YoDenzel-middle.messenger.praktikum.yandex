@@ -10,6 +10,8 @@ type BlockEvents = {
 };
 
 export interface BaseProps extends Record<string, unknown> {
+  containerId?: string;
+  containerClassName?: string;
   events?: Record<string, (e: Event) => void>;
 }
 
@@ -52,7 +54,6 @@ export class Block<TProps extends BaseProps = BaseProps> {
     const children: Record<string, Block> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      // TODO: children should be an array of blocks
       if (value instanceof Block) {
         children[key] = value;
       } else {
@@ -129,6 +130,7 @@ export class Block<TProps extends BaseProps = BaseProps> {
   }
 
   private _render() {
+    // console.log("render");
     const block = this.render();
     if (this._element) {
       this._removeEvents();
@@ -169,6 +171,12 @@ export class Block<TProps extends BaseProps = BaseProps> {
     const element = document.createElement(tagName) as HTMLElement | HTMLTemplateElement;
     if (this._id) {
       element.setAttribute("data-id", this._id);
+    }
+    if (this.props.containerClassName) {
+      element.className = this.props.containerClassName;
+    }
+    if (this.props.containerId) {
+      element.setAttribute("id", this.props.containerId);
     }
     return element;
   }

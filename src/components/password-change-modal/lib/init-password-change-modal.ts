@@ -5,7 +5,7 @@ export function initPasswordChangeModal() {
   const newPasswordInput = document.getElementById("new_password") as HTMLInputElement;
   const confirmPasswordInput = document.getElementById("new_password_confirm") as HTMLInputElement;
   const passwordError = document.getElementById("password-error");
-  const saveBtn = document.getElementById("password-change-btn");
+  // const saveBtn = document.getElementById("password-change-btn");
 
   if (!modal || !form || !oldPasswordInput || !newPasswordInput || !confirmPasswordInput || !passwordError) {
     console.error("Password modal elements not found");
@@ -13,6 +13,7 @@ export function initPasswordChangeModal() {
   }
 
   (window as any).openPasswordModal = function () {
+    form.reset();
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
   };
@@ -32,7 +33,7 @@ export function initPasswordChangeModal() {
   });
 
   form.addEventListener("submit", (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     if (newPasswordInput.value !== confirmPasswordInput.value) {
       passwordError.textContent = "Пароли не совпадают";
@@ -48,24 +49,4 @@ export function initPasswordChangeModal() {
     alert("Пароль успешно изменен!");
     (window as any).closePasswordModal();
   });
-
-  if (saveBtn) {
-    saveBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      if (newPasswordInput.value !== confirmPasswordInput.value) {
-        passwordError.textContent = "Пароли не совпадают";
-        return;
-      }
-
-      if (newPasswordInput.value.length < 8) {
-        passwordError.textContent = "Новый пароль должен быть не менее 8 символов";
-        return;
-      }
-
-      passwordError.textContent = "";
-      alert("Пароль успешно изменен!");
-      (window as any).closePasswordModal();
-    });
-  }
 }
