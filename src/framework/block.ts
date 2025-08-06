@@ -15,8 +15,7 @@ export interface BaseProps extends Record<string, unknown> {
   events?: Record<string, (e: Event) => void>;
 }
 
-// TODO: abstract class
-export class Block<TProps extends BaseProps = BaseProps> {
+export abstract class Block<TProps extends BaseProps = BaseProps> {
   static EVENTS = {
     INIT: "init",
     COMPONENT_DID_MOUNT: "componentDidMount",
