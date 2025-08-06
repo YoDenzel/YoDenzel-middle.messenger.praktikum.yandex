@@ -101,7 +101,7 @@ export abstract class Block<TProps extends BaseProps = BaseProps> {
     });
   }
 
-  componentDidMount(oldProps?: Record<string, unknown>): void {}
+  componentDidMount(): void {}
 
   dispatchComponentDidMount() {
     this._eventBus.emit(Block.EVENTS.COMPONENT_DID_MOUNT);
@@ -114,6 +114,9 @@ export abstract class Block<TProps extends BaseProps = BaseProps> {
   }
 
   componentDidUpdate(oldProps: Record<string, unknown>, newProps: Record<string, unknown>): boolean {
+    if (JSON.stringify(oldProps) === JSON.stringify(newProps)) {
+      return false;
+    }
     return true;
   }
 
