@@ -1,6 +1,10 @@
-import { Button } from "../button/button";
-import { InputWithLabel } from "../input-with-label/input-with-label";
-import { BaseProps, Block } from "../../framework/block";
+import { Button } from "../../../../components/button/button";
+import { InputWithLabel } from "../../../../components/input-with-label/input-with-label";
+import { BaseProps, Block } from "../../../../framework/block";
+
+interface PasswordChangeFormProps extends BaseProps {
+  onCancel?: () => void;
+}
 
 class PasswordChangeFormHeader extends Block {
   constructor(props: BaseProps) {
@@ -94,8 +98,8 @@ class PasswordChangeFormConfirmPasswordGroup extends Block {
   }
 }
 
-class PasswordChangeFormActions extends Block {
-  constructor(props: BaseProps) {
+class PasswordChangeFormActions extends Block<PasswordChangeFormProps> {
+  constructor(props: PasswordChangeFormProps) {
     super(undefined, {
       ...props,
       saveButton: new Button({
@@ -109,7 +113,9 @@ class PasswordChangeFormActions extends Block {
         className: "modal__button modal__button--secondary",
         events: {
           click: () => {
-            (window as any).closePasswordModal();
+            if (props.onCancel) {
+              props.onCancel();
+            }
           },
         },
       }),
@@ -127,15 +133,15 @@ class PasswordChangeFormActions extends Block {
   }
 }
 
-export class PasswordChangeForm extends Block {
-  constructor(props: BaseProps) {
+export class PasswordChangeForm extends Block<PasswordChangeFormProps> {
+  constructor(props: PasswordChangeFormProps) {
     super(undefined, {
       ...props,
       header: new PasswordChangeFormHeader({}),
       oldPasswordGroup: new PasswordChangeFormOldPasswordGroup({}),
       newPasswordGroup: new PasswordChangeFormNewPasswordGroup({}),
       confirmPasswordGroup: new PasswordChangeFormConfirmPasswordGroup({}),
-      actions: new PasswordChangeFormActions({}),
+      actions: new PasswordChangeFormActions({ onCancel: props.onCancel }),
     });
   }
 

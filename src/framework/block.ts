@@ -129,7 +129,6 @@ export abstract class Block<TProps extends BaseProps = BaseProps> {
   }
 
   private _render() {
-    // console.log("render");
     const block = this.render();
     if (this._element) {
       this._removeEvents();

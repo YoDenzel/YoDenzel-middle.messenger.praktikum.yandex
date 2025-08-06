@@ -1,9 +1,10 @@
-import { Button } from "../../../components/button/button";
-import { InputWithLabel } from "../../../components/input-with-label/input-with-label";
-import { BaseProps, Block } from "../../../framework/block";
+import { Button } from "../../../../components/button/button";
+import { InputWithLabel } from "../../../../components/input-with-label/input-with-label";
+import { BaseProps, Block } from "../../../../framework/block";
 
 interface ProfileFormProps extends BaseProps {
   isEditing?: boolean;
+  onOpenPasswordModal?: () => void;
 }
 
 class ProfileFormPersonalInfo extends Block<ProfileFormProps> {
@@ -153,9 +154,7 @@ class ProfileFormActions extends Block<ProfileFormProps> {
         label: "Изменить пароль",
         events: {
           click: () => {
-            if (typeof (window as any).openPasswordModal === "function") {
-              (window as any).openPasswordModal();
-            }
+            props.onOpenPasswordModal?.();
           },
         },
       }),
@@ -190,7 +189,10 @@ export class ProfileForm extends Block<ProfileFormProps> {
       contactInfo: new ProfileFormContactInfo({ isEditing: props.isEditing }),
       accountInfo: new ProfileFormAccountInfo({ isEditing: props.isEditing }),
       personalInfo: new ProfileFormPersonalInfo({ isEditing: props.isEditing }),
-      actions: new ProfileFormActions({ isEditing: props.isEditing }),
+      actions: new ProfileFormActions({
+        isEditing: props.isEditing,
+        onOpenPasswordModal: props.onOpenPasswordModal,
+      }),
     });
   }
 

@@ -7,10 +7,10 @@ import { Button } from "../../components/button/button";
 import { Img } from "../../components/img/img";
 import { InputWithLabel } from "../../components/input-with-label/input-with-label";
 import { NavigationLinks } from "../../components/navigation-links/navigation-links";
-import { AvatarUploadModal } from "../../components/avatar-upload-modal/avatar-upload-modal";
-import { PasswordChangeModal } from "../../components/password-change-modal/password-change-modal";
+import { AvatarUploadModal } from "./components/avatar-upload-modal/avatar-upload-modal";
+import { PasswordChangeModal } from "./components/password-change-modal/password-change-modal";
 import { Form } from "../../components/form/form";
-import { ProfileForm } from "./profile-form/profile-form";
+import { ProfileForm } from "./components/profile-form/profile-form";
 
 const IS_EDITING = false;
 
@@ -20,11 +20,25 @@ interface Props extends BaseProps {
 
 class Profile extends Block<Props> {
   constructor(props: Props) {
-    super(undefined, props);
+    super(undefined, {
+      ...props,
+    });
   }
 
   render() {
     return this.compile(template, this.props);
+  }
+
+  public openAvatarModal(): void {
+    if (this.children.avatarUploadModal) {
+      (this.children.avatarUploadModal as AvatarUploadModal).openModal();
+    }
+  }
+
+  public openPasswordModal(): void {
+    if (this.children.passwordChangeModal) {
+      (this.children.passwordChangeModal as PasswordChangeModal).openModal();
+    }
   }
 }
 
@@ -50,9 +64,7 @@ export const profile = new Profile({
     label: "Изменить аватар",
     events: {
       click: () => {
-        if (typeof (window as any).openAvatarModal === "function") {
-          (window as any).openAvatarModal();
-        }
+        profile.openAvatarModal();
       },
     },
   }),
@@ -70,6 +82,9 @@ export const profile = new Profile({
     containerClassName: "profile__form",
     children: new ProfileForm({
       isEditing: IS_EDITING,
+      onOpenPasswordModal: () => {
+        profile.openPasswordModal();
+      },
     }),
   }),
   navigationLinks: new NavigationLinks({}),
