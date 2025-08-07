@@ -7,7 +7,8 @@ import { Form } from "../../../../components/form/form";
 
 export class PasswordChangeModal extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
+      ...props,
       modalCloseButton: new Button({
         label: "×",
         className: "modal__close-button",
@@ -19,14 +20,27 @@ export class PasswordChangeModal extends Block {
       }),
       form: new Form({
         containerClassName: "modal__form",
-        containerId: "password-change-form",
         children: new PasswordChangeForm({
           onCancel: () => {
             this.closeModal();
           },
         }),
       }),
-      ...props,
+      events: {
+        click: (e: Event) => {
+          const target = e.target as HTMLElement;
+          if (target.id === "password-change-modal") {
+            this.closeModal();
+          }
+        },
+        submit: (e: Event) => {
+          e.preventDefault();
+          const form = e.target as HTMLFormElement;
+          if (form.dataset.id === this.children.form.getId()) {
+            this.handleFormSubmit();
+          }
+        },
+      },
     });
   }
 
@@ -34,36 +48,16 @@ export class PasswordChangeModal extends Block {
     return this.compile(template, this.props);
   }
 
-  componentDidMount() {
-    this.initModal();
-  }
-
-  private initModal(): void {
-    const modal = this.element?.querySelector("#password-change-modal") as HTMLElement;
-    const form = this.element?.querySelector("#password-change-form") as HTMLFormElement;
-    const oldPasswordInput = this.element?.querySelector("#old_password") as HTMLInputElement;
+  private handleFormSubmit(): void {
     const newPasswordInput = this.element?.querySelector("#new_password") as HTMLInputElement;
     const confirmPasswordInput = this.element?.querySelector("#new_password_confirm") as HTMLInputElement;
     const passwordError = this.element?.querySelector("#password-error") as HTMLElement;
 
-    if (!modal || !form || !oldPasswordInput || !newPasswordInput || !confirmPasswordInput || !passwordError) {
-      console.error("Password modal elements not found");
+    if (!newPasswordInput || !confirmPasswordInput || !passwordError) {
+      console.error("Password form elements not found");
       return;
     }
 
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        this.closeModal();
-      }
-    });
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      this.handleFormSubmit(newPasswordInput, confirmPasswordInput, passwordError);
-    });
-  }
-
-  private handleFormSubmit(newPasswordInput: HTMLInputElement, confirmPasswordInput: HTMLInputElement, passwordError: HTMLElement): void {
     passwordError.textContent = "";
 
     if (newPasswordInput.value !== confirmPasswordInput.value) {
@@ -85,7 +79,7 @@ export class PasswordChangeModal extends Block {
     if (!this.element) return;
 
     const modal = this.element.querySelector("#password-change-modal") as HTMLElement;
-    const form = this.element.querySelector("#password-change-form") as HTMLFormElement;
+    const form = this.element.querySelector(`[data-id="${this.children.form.getId()}"]`) as HTMLFormElement;
     const passwordError = this.element.querySelector("#password-error") as HTMLElement;
 
     if (modal && form && passwordError) {
@@ -100,7 +94,7 @@ export class PasswordChangeModal extends Block {
     if (!this.element) return;
 
     const modal = this.element.querySelector("#password-change-modal") as HTMLElement;
-    const form = this.element.querySelector("#password-change-form") as HTMLFormElement;
+    const form = this.element.querySelector(`[data-id="${this.children.form.getId()}"]`) as HTMLFormElement;
     const passwordError = this.element.querySelector("#password-error") as HTMLElement;
 
     if (modal && form && passwordError) {

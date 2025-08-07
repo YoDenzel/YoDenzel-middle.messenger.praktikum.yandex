@@ -21,33 +21,32 @@ interface HTTPTransportOptions {
 }
 
 function queryStringify(data: Record<string, unknown>): string {
-  let result = "?";
-  Object.entries(data).forEach(([key, value], index, arr) => {
-    result += `${key}=${value}${index < arr.length - 1 ? "&" : ""}`;
+  const params = new URLSearchParams();
+
+  Object.entries(data).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach((item) => {
+        params.append(key, String(item));
+      });
+    } else if (value !== null && typeof value === "object") {
+      params.append(key, JSON.stringify(value));
+    } else {
+      params.append(key, String(value));
+    }
   });
 
-  return result;
+  return `?${params.toString()}`;
 }
 
 class HTTPTransport {
-  get = (url: string, options: HTTPTransportOptions = {}): Promise<XMLHttpRequest> => {
-    return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
-  };
+  private _createMethod(method: Method) {
+    return (url: string, options: HTTPTransportOptions = {}): Promise<XMLHttpRequest> => {
+      return this._request(url, { ...options, method });
+    };
+  }
 
-  put = (url: string, options: HTTPTransportOptions = {}): Promise<XMLHttpRequest> => {
-    return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
-  };
-
-  post = (url: string, options: HTTPTransportOptions = {}): Promise<XMLHttpRequest> => {
-    return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
-  };
-
-  delete = (url: string, options: HTTPTransportOptions = {}): Promise<XMLHttpRequest> => {
-    return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
-  };
-
-  request = (url: string, options: RequestOptions, timeout = 5000): Promise<XMLHttpRequest> => {
-    const { headers = {}, data, method } = options;
+  private _request = (url: string, options: RequestOptions): Promise<XMLHttpRequest> => {
+    const { headers = {}, data, method, timeout = 5000 } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -79,6 +78,11 @@ class HTTPTransport {
       }
     });
   };
+
+  get = this._createMethod(METHODS.GET);
+  put = this._createMethod(METHODS.PUT);
+  post = this._createMethod(METHODS.POST);
+  delete = this._createMethod(METHODS.DELETE);
 }
 
 export default HTTPTransport;

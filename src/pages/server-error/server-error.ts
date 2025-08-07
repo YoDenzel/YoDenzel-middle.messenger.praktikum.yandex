@@ -12,10 +12,6 @@ interface Props extends BaseProps {
 }
 
 class ServerError extends Block<Props> {
-  constructor(props: Props) {
-    super(undefined, props);
-  }
-
   render() {
     return this.compile(template, this.props);
   }

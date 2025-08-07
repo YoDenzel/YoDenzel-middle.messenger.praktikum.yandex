@@ -10,7 +10,6 @@ type BlockEvents = {
 };
 
 export interface BaseProps extends Record<string, unknown> {
-  containerId?: string;
   containerClassName?: string;
   events?: Record<string, (e: Event) => void>;
 }
@@ -30,7 +29,7 @@ export abstract class Block<TProps extends BaseProps = BaseProps> {
   private _eventBus: EventBus<BlockEvents>;
   private _id: string | null = null;
 
-  constructor(tagName: string = "div", propsAndChildren: Record<string, unknown> = {}) {
+  constructor(propsAndChildren: Record<string, unknown> = {}, tagName: string = "div") {
     const { props, children } = this._getChildren(propsAndChildren);
     this._eventBus = new EventBus<BlockEvents>();
 
@@ -149,6 +148,10 @@ export abstract class Block<TProps extends BaseProps = BaseProps> {
     return this.element;
   }
 
+  getId(): string | null {
+    return this._id;
+  }
+
   private _makePropsProxy(props: Record<string, unknown>) {
     const eventBus = this._eventBus;
     return new Proxy(props, {
@@ -175,9 +178,6 @@ export abstract class Block<TProps extends BaseProps = BaseProps> {
     }
     if (this.props.containerClassName) {
       element.className = this.props.containerClassName;
-    }
-    if (this.props.containerId) {
-      element.setAttribute("id", this.props.containerId);
     }
     return element;
   }

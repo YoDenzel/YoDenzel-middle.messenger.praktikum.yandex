@@ -94,12 +94,12 @@ const validateEmail = (value: string, target: HTMLInputElement): void => {
 };
 
 const validateName = (value: string, target: HTMLInputElement): void => {
-  const nameRegex = /^[А-Яа-яA-Za-z][А-Яа-яA-Za-z-]*$/;
+  const nameRegex = /^[А-ЯЁа-яёA-Za-z][А-ЯЁа-яёA-Za-z-]*$/;
   const hasValidCharacters = nameRegex.test(value);
-  const hasUppercaseFirst = /^[А-ЯA-Z]/.test(value);
+  const hasUppercaseFirst = /^[А-ЯЁA-Z]/.test(value);
   const hasNoSpaces = !/\s/.test(value);
   const hasNoDigits = !/\d/.test(value);
-  const hasNoSpecialChars = /^[А-Яа-яA-Za-z-]+$/.test(value);
+  const hasNoSpecialChars = /^[А-ЯЁа-яёA-Za-z-]+$/.test(value);
   const isValid = hasValidCharacters && hasUppercaseFirst && hasNoSpaces && hasNoDigits && hasNoSpecialChars;
 
   if (!isValid) {

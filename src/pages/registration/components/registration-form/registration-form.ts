@@ -4,10 +4,6 @@ import { Link } from "../../../../components/link/link";
 import { BaseProps, Block } from "../../../../framework/block";
 
 class RegistrationFormHeader extends Block {
-  constructor(props: BaseProps) {
-    super(undefined, props);
-  }
-
   render() {
     const template = `  
       <h1 class="registration__title">Регистрация</h1>
@@ -18,7 +14,7 @@ class RegistrationFormHeader extends Block {
 
 class RegistrationFormLoginGroup extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       loginInput: new InputWithLabel({
         type: "text",
@@ -43,7 +39,7 @@ class RegistrationFormLoginGroup extends Block {
 
 class RegistrationFormContactGroup extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       emailInput: new InputWithLabel({
         type: "email",
@@ -81,7 +77,7 @@ class RegistrationFormContactGroup extends Block {
 
 class RegistrationFormNameGroup extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       firstNameInput: new InputWithLabel({
         type: "text",
@@ -119,7 +115,7 @@ class RegistrationFormNameGroup extends Block {
 
 class RegistrationFormPasswordGroup extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       passwordInput: new InputWithLabel({
         type: "password",
@@ -158,7 +154,7 @@ class RegistrationFormPasswordGroup extends Block {
 
 class RegistrationFormFooter extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       registrationButton: new Button({
         label: "Зарегистрироваться",
@@ -188,7 +184,7 @@ class RegistrationFormFooter extends Block {
 
 export class RegistrationForm extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       header: new RegistrationFormHeader({}),
       loginGroup: new RegistrationFormLoginGroup({}),

@@ -15,10 +15,6 @@ interface Props extends BaseProps {
 }
 
 export class InputWithLabel extends Block<Props> {
-  constructor(props: Props) {
-    super(undefined, props);
-  }
-
   render() {
     return this.compile(template, this.props);
   }

@@ -1,17 +1,13 @@
 import "./registration.css";
 import { render } from "../../framework/render-dom";
 import { NavigationLinks } from "../../components/navigation-links/navigation-links";
-import { BaseProps, Block } from "../../framework/block";
+import { Block } from "../../framework/block";
 import { RegistrationForm } from "./components/registration-form/registration-form";
 import { Form } from "../../components/form/form";
 
 import template from "./template.hbs?raw";
 
 class Registration extends Block {
-  constructor(props: BaseProps) {
-    super(undefined, props);
-  }
-
   render() {
     return this.compile(template, this.props);
   }

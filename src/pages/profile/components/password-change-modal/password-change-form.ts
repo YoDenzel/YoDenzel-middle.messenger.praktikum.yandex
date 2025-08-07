@@ -7,10 +7,6 @@ interface PasswordChangeFormProps extends BaseProps {
 }
 
 class PasswordChangeFormHeader extends Block {
-  constructor(props: BaseProps) {
-    super(undefined, props);
-  }
-
   render() {
     const template = `
       <h2 class="modal__title">Изменить пароль</h2>
@@ -21,7 +17,7 @@ class PasswordChangeFormHeader extends Block {
 
 class PasswordChangeFormOldPasswordGroup extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       oldPasswordInput: new InputWithLabel({
         type: "password",
@@ -47,7 +43,7 @@ class PasswordChangeFormOldPasswordGroup extends Block {
 
 class PasswordChangeFormNewPasswordGroup extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       newPasswordInput: new InputWithLabel({
         type: "password",
@@ -73,7 +69,7 @@ class PasswordChangeFormNewPasswordGroup extends Block {
 
 class PasswordChangeFormConfirmPasswordGroup extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       confirmPasswordInput: new InputWithLabel({
         type: "password",
@@ -100,7 +96,7 @@ class PasswordChangeFormConfirmPasswordGroup extends Block {
 
 class PasswordChangeFormActions extends Block<PasswordChangeFormProps> {
   constructor(props: PasswordChangeFormProps) {
-    super(undefined, {
+    super({
       ...props,
       saveButton: new Button({
         label: "Изменить",
@@ -135,7 +131,7 @@ class PasswordChangeFormActions extends Block<PasswordChangeFormProps> {
 
 export class PasswordChangeForm extends Block<PasswordChangeFormProps> {
   constructor(props: PasswordChangeFormProps) {
-    super(undefined, {
+    super({
       ...props,
       header: new PasswordChangeFormHeader({}),
       oldPasswordGroup: new PasswordChangeFormOldPasswordGroup({}),

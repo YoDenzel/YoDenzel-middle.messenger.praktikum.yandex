@@ -34,10 +34,6 @@ interface Props extends BaseProps {
 }
 
 class Messenger extends Block<Props> {
-  constructor(props: Props) {
-    super(undefined, props);
-  }
-
   render() {
     return this.compile(template, this.props);
   }
@@ -184,11 +180,6 @@ export const messenger = new Messenger({
     className: "messenger__chat-menu",
     type: "button",
     label: "⋮",
-    events: {
-      click: () => {
-        console.log("Open chat menu");
-      },
-    },
   }),
   form: new Form({
     containerClassName: "messenger__input-area",

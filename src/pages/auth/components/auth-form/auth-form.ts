@@ -4,10 +4,6 @@ import { Link } from "../../../../components/link/link";
 import { BaseProps, Block } from "../../../../framework/block";
 
 class AuthFormHeader extends Block {
-  constructor(props: BaseProps) {
-    super(undefined, props);
-  }
-
   render() {
     const template = `  
       <h1 class="auth__title">Вход</h1>
@@ -18,7 +14,7 @@ class AuthFormHeader extends Block {
 
 class AuthFormLoginGroup extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       loginInput: new InputWithLabel({
         type: "text",
@@ -43,7 +39,7 @@ class AuthFormLoginGroup extends Block {
 
 class AuthFormPasswordGroup extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       passwordInput: new InputWithLabel({
         type: "password",
@@ -74,7 +70,7 @@ class AuthFormPasswordGroup extends Block {
 
 class AuthFormFooter extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       button: new Button({
         type: "submit",
@@ -104,7 +100,7 @@ class AuthFormFooter extends Block {
 
 export class AuthForm extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       header: new AuthFormHeader({}),
       loginInput: new AuthFormLoginGroup({}),

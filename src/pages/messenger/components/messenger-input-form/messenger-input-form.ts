@@ -4,7 +4,7 @@ import { BaseProps, Block } from "../../../../framework/block";
 
 class MessengerInputField extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       messageInput: new InputWithLabel({
         type: "text",
@@ -25,7 +25,7 @@ class MessengerInputField extends Block {
 
 class MessengerSendButton extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       sendButton: new Button({
         className: "messenger__send",
@@ -43,7 +43,7 @@ class MessengerSendButton extends Block {
 
 export class MessengerInputForm extends Block {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       ...props,
       containerClassName: "messenger__input-container",
       inputField: new MessengerInputField({}),

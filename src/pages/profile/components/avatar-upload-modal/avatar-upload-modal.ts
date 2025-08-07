@@ -13,7 +13,7 @@ export class AvatarUploadModal extends Block {
   private uploadBtn: HTMLElement | null = null;
 
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
       modalCloseButton: new Button({
         label: "×",
         className: "modal__close-button",
@@ -63,6 +63,47 @@ export class AvatarUploadModal extends Block {
         className: "modal__preview-image",
         style: "display: none;",
       }),
+      events: {
+        click: (e: Event) => {
+          const target = e.target as HTMLElement;
+          if (target.id === "avatar-upload-modal") {
+            this.closeModal();
+          }
+        },
+        dragenter: (e: Event) => {
+          const target = e.target as HTMLElement;
+          if (target.id === "drop-area") {
+            this.preventDefaults(e);
+            target.classList.add("drag-over");
+          }
+        },
+        dragover: (e: Event) => {
+          const target = e.target as HTMLElement;
+          if (target.id === "drop-area") {
+            this.preventDefaults(e);
+            target.classList.add("drag-over");
+          }
+        },
+        dragleave: (e: Event) => {
+          const target = e.target as HTMLElement;
+          if (target.id === "drop-area") {
+            this.preventDefaults(e);
+            target.classList.remove("drag-over");
+          }
+        },
+        drop: (e: Event) => {
+          const target = e.target as HTMLElement;
+          if (target.id === "drop-area") {
+            this.preventDefaults(e);
+            target.classList.remove("drag-over");
+
+            const dragEvent = e as DragEvent;
+            if (dragEvent.dataTransfer?.files) {
+              this.handleFiles(dragEvent.dataTransfer.files);
+            }
+          }
+        },
+      },
       ...props,
     });
   }
@@ -72,10 +113,10 @@ export class AvatarUploadModal extends Block {
   }
 
   componentDidMount() {
-    this.initializeModal();
+    this.initializeElements();
   }
 
-  private initializeModal(): void {
+  private initializeElements(): void {
     this.modal = document.getElementById("avatar-upload-modal");
     this.dropArea = document.getElementById("drop-area");
     this.fileInput = document.getElementById("avatar-file") as HTMLInputElement;
@@ -86,57 +127,6 @@ export class AvatarUploadModal extends Block {
       console.error("Modal elements not found");
       return;
     }
-
-    this.setupEventListeners();
-  }
-
-  private setupEventListeners(): void {
-    if (!this.modal || !this.dropArea || !this.fileInput) return;
-
-    this.modal.addEventListener("click", (e) => {
-      if (e.target === this.modal) {
-        this.closeModal();
-      }
-    });
-
-    this.fileInput.addEventListener("change", () => {
-      this.handleFiles(this.fileInput?.files || null);
-    });
-
-    const dragEvents = ["dragenter", "dragover", "dragleave", "drop"];
-    dragEvents.forEach((eventName) => {
-      this.dropArea?.addEventListener(eventName, this.preventDefaults, false);
-    });
-
-    ["dragenter", "dragover"].forEach((eventName) => {
-      this.dropArea?.addEventListener(
-        eventName,
-        () => {
-          this.dropArea?.classList.add("drag-over");
-        },
-        false
-      );
-    });
-
-    ["dragleave", "drop"].forEach((eventName) => {
-      this.dropArea?.addEventListener(
-        eventName,
-        () => {
-          this.dropArea?.classList.remove("drag-over");
-        },
-        false
-      );
-    });
-
-    this.dropArea?.addEventListener(
-      "drop",
-      (e: DragEvent) => {
-        if (e.dataTransfer?.files) {
-          this.handleFiles(e.dataTransfer.files);
-        }
-      },
-      false
-    );
   }
 
   private preventDefaults(e: Event): void {

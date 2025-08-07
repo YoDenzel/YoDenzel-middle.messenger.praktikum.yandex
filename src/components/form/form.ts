@@ -7,20 +7,23 @@ interface Props extends BaseProps {
 
 export class Form extends Block<Props> {
   constructor(props: Props) {
-    super("form", {
-      ...props,
-      events: {
-        submit: (e: Event) => {
-          e.preventDefault();
-          this._validate(e);
-          this._log();
+    super(
+      {
+        ...props,
+        events: {
+          submit: (e: Event) => {
+            e.preventDefault();
+            this._validate(e);
+            this._log();
+          },
+          focusout: (e: Event) => {
+            this._validate(e);
+          },
+          ...props.events,
         },
-        focusout: (e: Event) => {
-          this._validate(e);
-        },
-        ...props.events,
       },
-    });
+      "form"
+    );
   }
 
   private _validate(e: Event) {

@@ -5,14 +5,14 @@ import "./navigation-links.css";
 
 export class NavigationLinks extends Block<BaseProps> {
   constructor(props: BaseProps) {
-    super(undefined, {
+    super({
+      ...props,
       authLink: new Link({ href: "/auth", label: "Авторизация" }),
       registrationLink: new Link({ href: "/registration", label: "Регистрация" }),
       profileLink: new Link({ href: "/profile", label: "Профиль" }),
       messengerLink: new Link({ href: "/messenger", label: "Мессенджер" }),
       clientErrorLink: new Link({ href: "/client-error", label: "Ошибка 404" }),
       serverErrorLink: new Link({ href: "/server-error", label: "Ошибка 500" }),
-      ...props,
     });
   }
 

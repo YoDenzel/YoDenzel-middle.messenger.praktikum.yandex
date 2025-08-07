@@ -9,7 +9,7 @@ interface ProfileFormProps extends BaseProps {
 
 class ProfileFormPersonalInfo extends Block<ProfileFormProps> {
   constructor(props: ProfileFormProps) {
-    super(undefined, {
+    super({
       ...props,
       firstNameInput: new InputWithLabel({
         type: "text",
@@ -53,7 +53,7 @@ class ProfileFormPersonalInfo extends Block<ProfileFormProps> {
 
 class ProfileFormContactInfo extends Block<ProfileFormProps> {
   constructor(props: ProfileFormProps) {
-    super(undefined, {
+    super({
       ...props,
       emailInput: new InputWithLabel({
         type: "text",
@@ -97,7 +97,7 @@ class ProfileFormContactInfo extends Block<ProfileFormProps> {
 
 class ProfileFormAccountInfo extends Block<ProfileFormProps> {
   constructor(props: ProfileFormProps) {
-    super(undefined, {
+    super({
       ...props,
       loginInput: new InputWithLabel({
         type: "text",
@@ -141,7 +141,7 @@ class ProfileFormAccountInfo extends Block<ProfileFormProps> {
 
 class ProfileFormActions extends Block<ProfileFormProps> {
   constructor(props: ProfileFormProps) {
-    super(undefined, {
+    super({
       ...props,
       saveButton: new Button({
         type: "submit",
@@ -184,7 +184,7 @@ class ProfileFormActions extends Block<ProfileFormProps> {
 
 export class ProfileForm extends Block<ProfileFormProps> {
   constructor(props: ProfileFormProps) {
-    super(undefined, {
+    super({
       ...props,
       contactInfo: new ProfileFormContactInfo({ isEditing: props.isEditing }),
       accountInfo: new ProfileFormAccountInfo({ isEditing: props.isEditing }),
