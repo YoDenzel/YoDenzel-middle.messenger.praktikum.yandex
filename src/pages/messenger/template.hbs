@@ -1,0 +1,75 @@
+<div class="messenger-container">
+  <div class="messenger">
+    <aside class="messenger__sidebar">
+      <div class="messenger__header">
+        {{{profileLink}}}
+        <div class="messenger__search">
+          <div class="messenger__search-wrapper">
+            {{{searchInput}}}
+            {{{searchIcon}}}
+          </div>
+        </div>
+      </div>
+
+      <div class="messenger__chats">
+        {{#each chats}}
+          <div class="chat-item {{#if isSelected}}chat-item--selected{{/if}}">
+            <div class="chat-item__avatar">
+              <img src="{{avatar}}" alt="{{name}}" class="chat-item__avatar-img">
+            </div>
+            <div class="chat-item__content">
+              <div class="chat-item__top">
+                <span class="chat-item__name">{{name}}</span>
+                <span class="chat-item__time">{{time}}</span>
+              </div>
+              <div class="chat-item__bottom">
+                <span class="chat-item__message">{{lastMessage}}</span>
+                {{#if unreadCount}}
+                  <span class="chat-item__counter">{{unreadCount}}</span>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </aside>
+
+    <main class="messenger__main">
+      {{#if selectedChat}}
+        <div class="messenger__chat">
+          <div class="messenger__chat-header">
+            <div class="messenger__chat-info">
+              <img src="{{selectedChat.avatar}}" alt="{{selectedChat.name}}" class="messenger__chat-avatar">
+              <span class="messenger__chat-name">{{selectedChat.name}}</span>
+            </div>
+            {{{chatMenuButton}}}
+          </div>
+
+          <div class="messenger__messages">
+            {{#if selectedChat.messages}}
+              <div class="messenger__messages-list">
+                {{#each selectedChat.messages}}
+                  <div class="message-item {{#if isMine}}message-item--mine{{/if}}">
+                    <div class="message-item__content">
+                      <div class="message-item__text">{{text}}</div>
+                      <div class="message-item__time">{{time}}</div>
+                    </div>
+                  </div>
+                {{/each}}
+              </div>
+            {{else}}
+              <div class="messenger__empty">
+                <p>Выберите чат, чтобы отправить сообщение</p>
+              </div>
+            {{/if}}
+          </div>
+
+          {{{form}}}
+        </div>
+      {{else}}
+        <p class="messenger__empty">Выберите чат, чтобы отправить сообщение</p>
+      {{/if}}
+    </main>
+  </div>
+  {{{navigationLinks}}}
+</div> 
